@@ -5,6 +5,10 @@ use std::{
     ops::{Add, AddAssign, Sub, SubAssign},
 };
 
+pub const DIRS: [Vector2; 8] = [N, NE, E, SE, S, SW, W, NW];
+pub const DIAGONALS: [Vector2; 4] = [NW, NE, SE, SW];
+pub const CARDINALS: [Vector2; 4] = [N, E, S, W];
+
 pub const N: Vector2 = Vector2 { x: 0, y: 1 };
 pub const NE: Vector2 = Vector2 { x: 1, y: 1 };
 pub const E: Vector2 = Vector2 { x: 1, y: 0 };
