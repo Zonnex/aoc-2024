@@ -276,3 +276,14 @@ impl std::ops::Mul<f64> for Vector2 {
         (self.x as f64 * rhs, self.y as f64 * rhs)
     }
 }
+
+impl std::ops::Mul<i32> for Vector2 {
+    type Output = Self;
+
+    fn mul(self, rhs: i32) -> Self::Output {
+        Vector2 {
+            x: self.x * rhs as isize,
+            y: self.y * rhs as isize,
+        }
+    }
+}
