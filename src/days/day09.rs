@@ -1,12 +1,25 @@
 use crate::{Solution, SolutionPair};
-use std::fs::read_to_string;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-pub fn solve() -> SolutionPair {
+pub fn solve(_input: &str) -> SolutionPair {
     // Your solution here...
-    let sol1: u64 = 0;
-    let sol2: u64 = 0;
+    let p1 = 0;
+    let p2 = 0;
 
-    (Solution::from(sol1), Solution::from(sol2))
+    (Solution::from(p1), Solution::from(p2))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_sample_input() {
+        let input = include_str!("../../input/day09/test.txt");
+
+        let (p1, p2) = super::solve(input);
+        assert_eq!(p1, Solution::Usize(0));
+        assert_eq!(p2, Solution::Usize(0));
+    }
 }

@@ -67,7 +67,7 @@ pub fn solve(input: &str) -> SolutionPair {
 
 #[cfg(test)]
 mod tests {
-    use crate::etc::solution::Solution;
+    use super::*;
 
     #[test]
     fn test_sample_input() {
