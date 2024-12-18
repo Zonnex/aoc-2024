@@ -4,8 +4,8 @@ use crate::{Solution, SolutionPair};
 
 pub fn solve(_input: &str) -> SolutionPair {
     // Your solution here...
-    let p1 = 0;
-    let p2 = 0;
+    let p1 = 0_usize;
+    let p2 = 0_usize;
 
     (Solution::from(p1), Solution::from(p2))
 }
