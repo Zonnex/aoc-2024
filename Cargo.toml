@@ -11,3 +11,4 @@ overflow-checks = false
 [dependencies]
 itertools = "*"
 regex = "*"
+hashbrown = "0.15"
