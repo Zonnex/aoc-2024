@@ -94,9 +94,9 @@ impl Vector2 {
     pub fn left(&self, direction: Vector2) -> Self {
         let dir = match direction {
             N => W,
-            E => N,
-            S => E,
             W => S,
+            S => E,
+            E => N,
             _ => unreachable!(),
         };
 
