@@ -25,16 +25,16 @@ pub fn solve(input: &str) -> SolutionPair {
 // Button B: X+22, Y+67
 // Prize: X=8400, Y=5400
 fn solve_single(ax: isize, ay: isize, bx: isize, by: isize, tx: isize, ty: isize) -> isize {
-    let b_press = (ty * ax - tx * ay) / (by * ax - bx * ay);
-    let a_press = (tx - b_press * bx) / ax;
+    let b = (ty * ax - tx * ay) / (by * ax - bx * ay);
+    let a = (tx - b * bx) / ax;
     
-    let x = ax * a_press + bx * b_press;
-    let y = ay * a_press + by * b_press;
+    let x = ax * a + bx * b;
+    let y = ay * a + by * b;
 
     if (x, y) != (tx, ty) {
         return 0;
     }
-    a_press * 3 + b_press
+    a * 3 + b
 }
 
 #[cfg(test)]
