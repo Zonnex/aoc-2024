@@ -37,12 +37,28 @@ impl Map {
 }
 
 pub fn solve(input: &str) -> SolutionPair {
-    let map = Map::parse(input);
+    let mut map = Map::parse(input);
 
-    let mut positions:HashMap<Vector2, HashSet<Vector2>> = HashMap::new();
+    let p1 = sim(&map).unwrap();
+
+    let mut p2: usize = 0;
+    for &p in &p1 {
+        map.data.entry(p).and_modify(|c| *c = '#');
+
+        if let None = sim(&map) {
+            p2 += 1;
+        }
+
+        map.data.entry(p).and_modify(|c| *c = '.');
+    }
+
+    (Solution::from(p1.len()), Solution::from(p2))
+}
+
+// here we let guard go, see if we get out or not
+fn sim(map: &Map) -> Option<Vec<Vector2>> {
+    let mut positions: HashMap<Vector2, HashSet<Vector2>> = HashMap::new();
     positions.entry(map.start).or_default().insert(N);
-
-    let obstructions: HashSet<Vector2> = HashSet::new();
 
     let mut current = map.start;
     let mut dir = N;
@@ -51,18 +67,15 @@ pub fn solve(input: &str) -> SolutionPair {
             '#' => dir = ORIGIN.right(dir),
             '.' => {
                 current += dir;
-                positions.entry(current).or_default().insert(N);
-                // check if a previous path is to our right and we traversed right on it?
+                if !positions.entry(current).or_default().insert(dir) {
+                    return None;
+                }
             }
             _ => unreachable!(),
         }
     }
-    let p1 = positions.len();
-    let p2 = obstructions.len();
 
-    println!("obstructions: {:?}", obstructions);
-
-    (Solution::from(p1), Solution::from(p2))
+    Some(positions.keys().copied().collect::<Vec<_>>())
 }
 
 #[cfg(test)]
