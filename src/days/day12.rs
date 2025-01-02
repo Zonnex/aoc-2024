@@ -76,9 +76,9 @@ fn price_p1(region: &HashSet<(usize, usize)>) -> usize {
     area * borders
 }
 
-fn price_p2(region: &HashSet<(usize, usize)>) -> usize {
+fn _price_p2(region: &HashSet<(usize, usize)>) -> usize {
     let area = region.len();
-    let mut sides = 0;
+    let mut _sides = 0;
 
     /*
     for the sides, to capture the outer sides we can find lowest x and y, traverse clockwise.
@@ -86,7 +86,7 @@ fn price_p2(region: &HashSet<(usize, usize)>) -> usize {
     */
 
 
-    area * sides
+    area * _sides
 }
 
 #[cfg(test)]
@@ -140,21 +140,21 @@ mod tests {
         */
 
         // AAAA
-        assert_eq!(price_p2(&HashSet::from([(0, 0), (1, 0), (2, 0), (3, 0)])), 40);
+        assert_eq!(_price_p2(&HashSet::from([(0, 0), (1, 0), (2, 0), (3, 0)])), 40);
 
         // BB
         // BB
-        assert_eq!(price_p2(&HashSet::from([(0, 1), (1, 1), (0, 2), (1, 2)])), 32);
+        assert_eq!(_price_p2(&HashSet::from([(0, 1), (1, 1), (0, 2), (1, 2)])), 32);
 
         // C
         // CC
         //  C
-        assert_eq!(price_p2(&HashSet::from([(2, 1), (2, 2), (3, 2), (3, 3)])), 40);
+        assert_eq!(_price_p2(&HashSet::from([(2, 1), (2, 2), (3, 2), (3, 3)])), 40);
 
         // D
-        assert_eq!(price_p2(&HashSet::from([(3, 1)])), 4);
+        assert_eq!(_price_p2(&HashSet::from([(3, 1)])), 4);
 
         // EEE
-        assert_eq!(price_p2(&HashSet::from([(0, 3), (1, 3), (2, 3)])), 24);
+        assert_eq!(_price_p2(&HashSet::from([(0, 3), (1, 3), (2, 3)])), 24);
     }
 }

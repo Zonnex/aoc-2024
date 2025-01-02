@@ -35,7 +35,7 @@ impl Grid {
         self.grid.get(y).and_then(|row| row.get(x))
     }
 
-    fn print(&self) {
+    fn _print(&self) {
         for row in self.grid.iter().rev() {
             for &v in row {
                 print!("{}", v as char);
@@ -77,7 +77,7 @@ pub fn solve(input: &str) -> SolutionPair {
 
     while let Some((score, current, dir)) = q.pop() {
         if let Some(b'E') = grid.get(current) {
-            p1 = score.abs() as usize;
+            p1 = score.unsigned_abs();
             continue;
         }
         
@@ -106,7 +106,7 @@ pub fn solve(input: &str) -> SolutionPair {
     }
 
     // traverse from the exit, find all paths until we reach the start
-    let nodes: HashSet<Vector2> = HashSet::new();
+    let _nodes: HashSet<Vector2> = HashSet::new();
     let mut q = VecDeque::new();
 
     for dir in [vector_2d::N, vector_2d::E, vector_2d::S, vector_2d::W].iter() {

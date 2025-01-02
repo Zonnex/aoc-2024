@@ -79,7 +79,7 @@ fn parse(input: &str) -> (Registers, Vec<usize>) {
 
 fn run<F>(mut registers: Registers, instructions: &[usize], mut output: F) -> Registers
 where
-    F: FnMut(usize) -> (),
+    F: FnMut(usize),
 {
     fn combo_operand(registers: &Registers, v: usize) -> usize{
         match v {

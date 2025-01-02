@@ -44,18 +44,21 @@ pub fn solve(input: &str) -> SolutionPair {
     }
 
     let p1 = bfs(&grid, (70, 70), (0, 0)).unwrap();
-
+    
+    /*
+        p2 could be massively improved by recording the shortest path from p1, and then recalculate the path only when the instructions overlap with the shortest path.
+    */
     let mut grid = grid.clone();
     let mut p2 = String::from("(0,0)");
     for (x, y) in coords {
         grid.set(x, y, b'#');
-        if let None = dfs(&grid, (70, 70), (0, 0)) {
+        if dfs(&grid, (70, 70), (0, 0)).is_none() {
             p2 = format!("{},{}", x, y);
             break;
         }
     }
 
-    (Solution::from(p1), Solution::Str(p2.into()))
+    (Solution::from(p1), Solution::Str(p2))
 }
 
 fn bfs(grid: &Grid, start: Vector2, end: Vector2) -> Option<usize> {

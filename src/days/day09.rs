@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::collections::VecDeque;
 
 use crate::{Solution, SolutionPair};
@@ -32,10 +33,10 @@ impl HardDrive {
             back_index,
         }
     }
-    fn pop_block_front(&mut self) -> Option<Id> {
+    fn _pop_block_front(&mut self) -> Option<Id> {
         let (index, Count(count)) = self.files.get_mut(self.front_index).unwrap();
         match count {
-            0 => return None,
+            0 => None,
             _ => {
                 *count -= 1;
                 if *count == 0 {
@@ -46,10 +47,10 @@ impl HardDrive {
         }
     }
 
-    fn pop_block_back(&mut self) -> Option<Id> {
+    fn _pop_block_back(&mut self) -> Option<Id> {
         let (index, Count(count)) = self.files.get_mut(self.back_index).unwrap();
         match count {
-            0 => return None,
+            0 => None,
             _ => {
                 *count -= 1;
                 if *count == 0 {
@@ -61,7 +62,7 @@ impl HardDrive {
     }
 
     fn pop_file_front(&mut self) -> Option<(Id, Count)> {
-        return self.files.pop_front();
+        self.files.pop_front()
     }
 
     fn pop_file_back(&mut self, size: u32) -> Option<(Id, Count)> {
@@ -84,7 +85,7 @@ impl HardDrive {
     fn p1(&mut self, input: &[u32]) -> u32 {
         let mut checksum = 0;
         let mut i = 0_u32;
-        'outer: for (index, digit) in input.into_iter().enumerate() {
+        'outer: for (index, digit) in input.iter().enumerate() {
             match index % 2 {
                 0 => {
                     if let Some(value) = self.pop_file_front() {
@@ -133,7 +134,7 @@ impl HardDrive {
         00992111777.44.333....5555.6666.....8888.. // move 2
 
         */
-        'file_loop: for (fi, &fc) in input.iter().enumerate().step_by(2).rev() {
+        for (fi, &fc) in input.iter().enumerate().step_by(2).rev() {
             'space_loop: for (si, &sc) in input.iter().enumerate().skip(1).step_by(2) {
                 // if file fits in space, insert it and track remaining spaces. In example, 9 and 2 will fit in first space.
                 if si > fi {

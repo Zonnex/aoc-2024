@@ -45,7 +45,7 @@ pub fn solve(input: &str) -> SolutionPair {
     for &p in &p1 {
         map.data.entry(p).and_modify(|c| *c = '#');
 
-        if let None = sim(&map) {
+        if sim(&map).is_none() {
             p2 += 1;
         }
 

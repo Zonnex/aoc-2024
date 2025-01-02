@@ -1,8 +1,8 @@
 use crate::{Solution, SolutionPair};
 
 const BOX: u8 = b'O';
-const WIDE_BOX_LEFT: u8 = b'[';
-const WIDE_BOX_RIGHT: u8 = b']';
+const _WIDE_BOX_LEFT: u8 = b'[';
+const _WIDE_BOX_RIGHT: u8 = b']';
 const EMPTY: u8 = b'.';
 const WALL: u8 = b'#';
 const ROBOT: u8 = b'@';
@@ -33,7 +33,7 @@ impl Grid {
         Self { grid, robot }
     }
 
-    fn print(&self) {
+    fn _print(&self) {
         for row in &self.grid {
             for &v in row {
                 print!("{}", v as char);
@@ -93,7 +93,7 @@ impl Grid {
                             }
                         }
                     }
-                    WALL => return,
+                    WALL => (),
                     _ => panic!("out of bounds"),
                 }
             }
