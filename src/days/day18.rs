@@ -141,7 +141,7 @@ mod tests {
         let mut p2 = String::from("(0,0)");
         for &(x, y) in instructions.iter().skip(12) {
             grid.set(x, y, b'#');
-            if let None = bfs(&grid, start, end) {
+            if bfs(&grid, start, end).is_none() {
                 p2 = format!("{},{}", x, y);
                 break;
             }

@@ -9,7 +9,7 @@ pub fn solve(input: &str) -> SolutionPair {
         .map(Result::unwrap)
         .collect::<Vec<_>>();
 
-    let (mut p1, mut p2) = (0_usize, 0_usize);
+    let (mut p1, p2) = (0_usize, 0_usize);
     for value in values {
         let mut value = value;
         for _ in 0..2000 {
@@ -29,10 +29,6 @@ fn mix(a: usize, b: usize) -> usize {
 
 fn prune(a: usize) -> usize {
     a % 16777216
-}
-
-fn last_digit(a: usize) -> usize {
-    a % 10
 }
 
 #[cfg(test)]

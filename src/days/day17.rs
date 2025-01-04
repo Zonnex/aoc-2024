@@ -1,8 +1,8 @@
+#![allow(dead_code)]
 use core::panic;
 
 use itertools::Itertools;
 
-#[allow(dead_code)]
 use crate::{Solution, SolutionPair};
 
 ///////////////////////////////////////////////////////////////////////////////

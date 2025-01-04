@@ -3,8 +3,6 @@ use itertools::Itertools;
 
 use crate::{Solution, SolutionPair};
 
-///////////////////////////////////////////////////////////////////////////////
-
 pub fn solve(input: &str) -> SolutionPair {
     let edges = input
         .lines()
@@ -26,10 +24,12 @@ pub fn solve(input: &str) -> SolutionPair {
 
     let mut p1 = 0_usize;
     for (a, b, c) in sorted.into_iter().tuple_combinations() {
-        if a.starts_with('t') || b.starts_with('t') || c.starts_with('t') {
-            if edges.contains(&(a, b)) && edges.contains(&(b, c)) && edges.contains(&(a, c)) {
-                p1 += 1;
-            }
+        if (a.starts_with('t') || b.starts_with('t') || c.starts_with('t'))
+            && edges.contains(&(a, b))
+            && edges.contains(&(b, c))
+            && edges.contains(&(a, c))
+        {
+            p1 += 1;
         }
     }
 
