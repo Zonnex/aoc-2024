@@ -1,41 +1,60 @@
-use hashbrown::HashSet;
+use hashbrown::{HashMap, HashSet};
 use itertools::Itertools;
 
 use crate::{Solution, SolutionPair};
 
 pub fn solve(input: &str) -> SolutionPair {
-    let edges = input
-        .lines()
-        .flat_map(|line| {
-            let (a, b) = line.split_once('-').unwrap();
+    let graph = parse_graph(input);
 
-            [(a, b), (b, a)]
-        })
-        .collect::<HashSet<_>>();
+    let p1 = p1(&graph);
+    let p2 = p2(graph);
 
-    let mut computers = HashSet::new();
-    for (a, b) in &edges {
-        computers.insert(*a);
-        computers.insert(*b);
+    (Solution::Usize(p1), Solution::Str(p2))
+}
+
+fn parse_graph(input: &str) -> HashMap<&str, Vec<&str>> {
+    let mut graph = HashMap::new();
+    for line in input.lines() {
+        let (a, b) = line.split_once('-').unwrap();
+
+        graph.entry(a).or_insert_with(Vec::new).push(b);
+        graph.entry(b).or_insert_with(Vec::new).push(a);
     }
+    graph
+}
 
-    let mut sorted = computers.into_iter().collect::<Vec<_>>();
-    sorted.sort();
-
-    let mut p1 = 0_usize;
-    for (a, b, c) in sorted.into_iter().tuple_combinations() {
-        if (a.starts_with('t') || b.starts_with('t') || c.starts_with('t'))
-            && edges.contains(&(a, b))
-            && edges.contains(&(b, c))
-            && edges.contains(&(a, c))
-        {
-            p1 += 1;
+fn p1(graph: &HashMap<&str, Vec<&str>>) -> usize {
+    let mut p1 = 0;
+    for (&a, &b, &c) in graph.keys().tuple_combinations() {
+        if a.starts_with('t') || b.starts_with('t') || c.starts_with('t') {
+            if graph[&a].contains(&b) && graph[&a].contains(&c) && graph[&b].contains(&c) {
+                p1 += 1;
+            }
         }
     }
+    p1
+}
 
-    let p2 = 0_usize;
+fn p2(graph: HashMap<&str, Vec<&str>>) -> String {
+    let mut clique = Vec::new();
+    let mut largest_clique = Vec::new();
 
-    (Solution::from(p1), Solution::from(p2))
+    for (c1, connections) in graph.iter() {
+        clique.clear();
+        clique.push(c1);
+
+        for c2 in connections {
+            if clique.iter().all(|&c| graph[c2].contains(&c)) {
+                clique.push(c2);
+            }
+        }
+
+        if clique.len() > largest_clique.len() {
+            largest_clique.clone_from(&clique);
+        }
+    }
+    largest_clique.sort();
+    largest_clique.into_iter().join(",")
 }
 
 #[cfg(test)]
@@ -48,6 +67,6 @@ mod tests {
 
         let (p1, p2) = super::solve(input);
         assert_eq!(p1, Solution::Usize(7));
-        assert_eq!(p2, Solution::Usize(0));
+        assert_eq!(p2, Solution::Str("co,de,ka,ta".to_string()));
     }
 }
