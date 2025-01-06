@@ -1,4 +1,4 @@
-use hashbrown::{HashMap, HashSet};
+use hashbrown::HashMap;
 use itertools::Itertools;
 
 use crate::{Solution, SolutionPair};
@@ -26,10 +26,12 @@ fn parse_graph(input: &str) -> HashMap<&str, Vec<&str>> {
 fn p1(graph: &HashMap<&str, Vec<&str>>) -> usize {
     let mut p1 = 0;
     for (&a, &b, &c) in graph.keys().tuple_combinations() {
-        if a.starts_with('t') || b.starts_with('t') || c.starts_with('t') {
-            if graph[&a].contains(&b) && graph[&a].contains(&c) && graph[&b].contains(&c) {
-                p1 += 1;
-            }
+        if (a.starts_with('t') || b.starts_with('t') || c.starts_with('t'))
+            && graph[&a].contains(&b)
+            && graph[&a].contains(&c)
+            && graph[&b].contains(&c)
+        {
+            p1 += 1;
         }
     }
     p1
@@ -44,7 +46,7 @@ fn p2(graph: HashMap<&str, Vec<&str>>) -> String {
         clique.push(c1);
 
         for c2 in connections {
-            if clique.iter().all(|&c| graph[c2].contains(&c)) {
+            if clique.iter().all(|&c| graph[c2].contains(c)) {
                 clique.push(c2);
             }
         }
